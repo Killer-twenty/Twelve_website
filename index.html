@@ -21,6 +21,7 @@
             position: fixed;
             top: 0;
             width: 100%;
+            height: 100px;
             background-color: #333;
             color: white;
             z-index: 1000;
@@ -30,7 +31,8 @@
             display: flex;
             justify-content: space-between; /* 左右分布 */
             align-items: center;
-            padding: 15px 30px;
+            padding: 0px 30px;
+            display: flex;
         }
 
         header h1 {
@@ -51,7 +53,14 @@
             font-weight: normal;
             font-size: 1em;
         }
-
+        
+        header h1 a {                  /* 新增或插入在约第 52 行 header h1 之后 */
+            color: white;              /* 文字白色 */
+            text-decoration: none;     /* 去掉下划线 */
+            font-size: 2em;            /* 保持 logo 大小 */
+            font-weight: bold;         /* 保持加粗 */
+        }
+        
         nav a:hover {
             background-color: #555;
             border-radius: 5px;
@@ -103,8 +112,18 @@
         }
 
         .project-item {
-            width: 220px;
+            width: calc(25% - 20px);
+            display: flex;
+            flex-direction: column;
             text-align: center;
+            align-items: center;
+        }
+       
+        .project-title {
+            text-align: center;
+            font-size: 1em;
+            margin-bottom: 8px;
+            pointer-events: none; /* 禁止点击 */
         }
 
         .project-item img {
@@ -160,8 +179,8 @@
         /* 首页全屏视频背景 */
         #home {
             position: relative;
-            height: 70vh; /* 视口高度的70% */
-            max-width: 1980px;
+            height: 100vh; /* 视口高度的70% */
+            max-width: 95%;
             margin: 0 auto;
             padding: 0 20px;
             overflow: hidden;
@@ -169,10 +188,10 @@
 
         #home-bg-video {
             position: absolute;
-            top: 50%;
+            top: 52.5%;
             left: 50%;
-            min-width: 100%;
-            min-height: 100%;
+            width: 100%;
+            height: 85%;
             object-fit: cover; /* 视频填满屏幕，保持比例 */
             transform: translate(-50%, -50%);
             z-index: 0;
@@ -191,7 +210,8 @@
 
         /* 缓冲区 */
         #home-buffer {
-            height: 10px;          /* 可根据需求调整缓冲高度 */
+            height: 400px;          /* 可根据需求调整缓冲高度 */
+            background: transparent;
         }
 
 
@@ -202,9 +222,8 @@
 <!-- 顶部导航 -->
 <header>
     <div class="header-container">
-        <h1>Twelve 多媒体工作室</h1>
+        <h1><a href="#home">Twelve 多媒体工作室</a></h1>
         <nav>
-            <a href="#home">首页</a>
             <a href="#about">关于</a>
             <a href="#projects">作品</a>
             <a href="#services">服务</a>
@@ -215,7 +234,7 @@
 
 
 <!-- 首页模块 -->
-<section id="home">
+<div id="home">
     <!-- 视频背景 -->
     <video autoplay muted loop id="home-bg-video">
         <source src="bg.mp4" type="video/mp4">
@@ -225,10 +244,10 @@
     <div class="home-overlay">
         <!-- 可在这里放置logo、头像等 -->
     </div>
-</section>
+</div>
 
 <!-- 缓冲区 -->
-<section id="home-buffer"></section>
+<div id="home-buffer"></div>
 
 
 <!-- 关于模块 -->
@@ -247,18 +266,18 @@
 
 <!-- 作品展示模块 -->
 <section id="projects">
-    <h2>精选作品</h2>
+    <h2>作品展示</h2>
     <div class="projects-preview">
         <div class="project-item">
+            <div class="project-title">视频名称1</div>
             <a href="https://www.bilibili.com/video/BV1DzYvzEECE" target="_blank">
                 <img src="https://i1.hdslb.com/bfs/archive/08b7802dcb92b0a43213ef7ec828aef16be8bd07.jpg@672w_378h_1c.avif" alt="作品1">
-                <p>作品1：剪辑示例</p>
             </a>
         </div>
         <div class="project-item">
+            <div class="project-title">视频名称2</div>
             <a href="https://www.bilibili.com/video/BV1spYrzsELq" target="_blank">
                 <img src="https://i1.hdslb.com/bfs/archive/1fecdd4496cd401ba85a40fef407febe949cbf12.jpg@672w_378h_1c.avif" alt="作品2">
-                <p>作品2：剪辑示例</p>
             </a>
         </div>
     </div>
