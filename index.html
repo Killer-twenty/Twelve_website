@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Twelve 多媒体工作室</title>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
         /* 全局滚动平滑效果 */
@@ -184,7 +185,7 @@
         form button:hover {
             background-color: #555;
         }
-        
+
         /* 首页全屏视频背景 */
         #home {
             position: relative;
@@ -374,27 +375,61 @@
             <textarea id="details" name="details" maxlength="500" placeholder="请输入您的需求" required></textarea>
             <div id="char-count">还可以输入 500 字</div>
         </div>
-        
+
         <div class="textarea-wrapper">
             <label for="usage">用途说明*</label>
             <textarea id="usage" name="usage" maxlength="50" placeholder="影音平台投放、广告投放、游戏" required></textarea>
         </div>
 
+        <!-- 上传附件 -->
+        <!-- <label for="attachment">上传附件（可选）</label>
+        <input type="file" id="attachment" name="attachment" accept=".jpg,.png,.pdf,.doc,.docx,.pptx,.xlsx">
+        <small class="file-size-hint">文件大小不得超过 10MB</small> -->
+
         <button type="submit">提交</button>
 
+        <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
         <script>
-        const textarea = document.getElementById('details');
-        const charCount = document.getElementById('char-count');
-        const maxLength = 500;
+            // 初始化 EmailJS，替换成你的 Public Key
+            emailjs.init("YOUR_PUBLIC_KEY");
 
-        textarea.addEventListener('input', () => {
-            const remaining = maxLength - textarea.value.length;
-            charCount.textContent = `还可以输入 ${remaining} 字`;
-        });
+            const textarea = document.getElementById('details');
+            const charCount = document.getElementById('char-count');
+            const maxLength = 500;
 
+            // 字数统计
+            textarea.addEventListener('input', () => {
+                const remaining = maxLength - textarea.value.length;
+                charCount.textContent = `还可以输入 ${remaining} 字`;
+            });
         </script>
     </form>
 </section>
+
+<script>
+    // 初始化 EmailJS
+    (function() {
+        emailjs.init("3NFDBwaMx94Pyl8vS");  // 替换成你的 public key
+    })();
+
+    // 监听表单提交事件
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();  // 阻止默认提交行为
+
+        // 获取表单数据
+        const form = event.target;
+
+        // 通过 EmailJS 发送表单数据
+        emailjs.sendForm('service_eaxwi65', 'template_5uijjbm', form)
+            .then(function(response) {
+                console.log('成功:', response);
+                alert("✅ 信息已发送！");
+            }, function(error) {
+                console.log('失败:', error);
+                alert("❌ 发送失败: " + JSON.stringify(error));
+            });
+    });
+</script>
 
 <!-- 页脚 -->
 <footer>
