@@ -256,6 +256,33 @@
             pointer-events: none;
         }
 
+        #calendar-section {
+            background-color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        #calendar {
+            display: inline-grid;
+            grid-template-columns: repeat(7, 40px); /* 7天一行 */
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .calendar-day {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: default;
+            user-select: none;
+        }
+
+        .calendar-day.black {
+            background-color: black;
+            color: white;
+        }
 
 
     </style>
@@ -390,9 +417,6 @@
 
         <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
         <script>
-            // 初始化 EmailJS，替换成你的 Public Key
-            emailjs.init("YOUR_PUBLIC_KEY");
-
             const textarea = document.getElementById('details');
             const charCount = document.getElementById('char-count');
             const maxLength = 500;
@@ -430,6 +454,52 @@
             });
     });
 </script>
+
+<!-- 日历模块 -->
+<section id="calendar-section">
+  <h2>委托排程</h2>
+  <div id="calendar"></div>
+</section>
+
+<script>
+const calendar = document.getElementById('calendar');
+
+// 示例安排日期（格式：YYYY-MM-DD）
+const workDays = [
+  "2025-08-25",
+  "2025-08-28",
+  "2025-09-03"
+];
+
+// 获取当月信息
+const today = new Date();
+const year = today.getFullYear();
+const month = today.getMonth(); // 0-11
+const firstDay = new Date(year, month, 1).getDay(); // 当月第一天是星期几
+const lastDate = new Date(year, month + 1, 0).getDate(); // 当月天数
+
+// 填充空白
+for (let i = 0; i < firstDay; i++) {
+  const emptyCell = document.createElement('div');
+  calendar.appendChild(emptyCell);
+}
+
+// 填充日期
+for (let day = 1; day <= lastDate; day++) {
+  const dateStr = `${year}-${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+  const dayDiv = document.createElement('div');
+  dayDiv.classList.add('calendar-day');
+  dayDiv.textContent = day;
+
+  if (workDays.includes(dateStr)) {
+    dayDiv.classList.add('black');
+  }
+
+  calendar.appendChild(dayDiv);
+}
+</script>
+
+
 
 <!-- 页脚 -->
 <footer>
