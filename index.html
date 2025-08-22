@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Antique&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Twelve 多媒体工作室</title>
     <link rel="stylesheet" href="style.css">
@@ -49,9 +52,9 @@
         nav a {
             color: white;
             text-decoration: none;
-            padding: 8px 12px;
+            padding: 8px 35px;
             font-weight: normal;
-            font-size: 1em;
+            font-size: 1.3em;
         }
         
         header h1 a {                  /* 新增或插入在约第 52 行 header h1 之后 */
@@ -68,17 +71,18 @@
 
 
         section {
+            background-color: white;
             padding: 100px 20px;
             min-height: 100vh;
             box-sizing: border-box;
         }
 
         section:nth-of-type(odd) {
-            background-color: #f0f0f0;
+            background-color: white;
         }
 
         section:nth-of-type(even) {
-            background-color: #fafafa;
+            background-color: white;
         }
 
         h2 {
@@ -87,7 +91,12 @@
             margin-bottom: 20px;
         }
 
-        /* 首页按钮 */
+        /* 个人主页按钮 */
+        .btn-container {
+            text-align: center; /* 居中按钮 */
+            margin-top: 30px;   /* 顶部间距 */
+        }
+
         .btn {
             display: inline-block;
             background-color: #333;
@@ -95,8 +104,7 @@
             padding: 12px 30px;
             border-radius: 5px;
             text-decoration: none;
-            font-size: 1em;
-            margin-top: 20px;
+            font-size: 1.1em;
         }
 
         .btn:hover {
@@ -120,8 +128,9 @@
         }
        
         .project-title {
+            font-family: zen-antique, sans-serif; 
             text-align: center;
-            font-size: 1em;
+            font-size: 1.3em;
             margin-bottom: 8px;
             pointer-events: none; /* 禁止点击 */
         }
@@ -210,9 +219,42 @@
 
         /* 缓冲区 */
         #home-buffer {
-            height: 400px;          /* 可根据需求调整缓冲高度 */
+            height: 400px;
             background: transparent;
         }
+        
+        /* 需求输入框 */
+        .textarea-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        textarea {
+            resize: none;
+            overflow-y: auto;
+            width: 100%;
+            height: 200px;
+            padding: 10px 40px 10px 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #usage {
+            height: 50px;
+        }
+
+        #char-count {
+            position: absolute;
+            bottom: 20px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: #555;
+            pointer-events: none;
+        }
+
 
 
     </style>
@@ -252,7 +294,7 @@
 
 <!-- 关于模块 -->
 <section id="about">
-    <h2>关于 Twelve</h2>
+    <h2>个人简介</h2>
     <p style="text-align:center;">Twelve 拥有丰富的项目经验，为客户提供专业、个性化的解决方案，帮助品牌和个人实现创意价值。</p>
     <h3 style="text-align:center;">核心能力</h3>
     <ul style="max-width:600px;margin:0 auto;list-style:disc;padding-left:20px;">
@@ -269,17 +311,22 @@
     <h2>作品展示</h2>
     <div class="projects-preview">
         <div class="project-item">
-            <div class="project-title">视频名称1</div>
+            <div class="project-title">【若能化作星座/星座になれたら】</div>
             <a href="https://www.bilibili.com/video/BV1DzYvzEECE" target="_blank">
                 <img src="https://i1.hdslb.com/bfs/archive/08b7802dcb92b0a43213ef7ec828aef16be8bd07.jpg@672w_378h_1c.avif" alt="作品1">
             </a>
         </div>
         <div class="project-item">
-            <div class="project-title">视频名称2</div>
+            <div class="project-title">『夜明けのむこうに』</div>
             <a href="https://www.bilibili.com/video/BV1spYrzsELq" target="_blank">
                 <img src="https://i1.hdslb.com/bfs/archive/1fecdd4496cd401ba85a40fef407febe949cbf12.jpg@672w_378h_1c.avif" alt="作品2">
             </a>
         </div>
+    </div>
+    
+    <!-- 跳转个人主页按钮-->
+    <div class="btn-container">
+        <a href="https://space.bilibili.com/48028171" class="btn" target="_blank">查看更多</a>
     </div>
 </section>
 
@@ -306,14 +353,14 @@
 <!-- 联系模块 -->
 <section id="contact">
     <h2>联系我 / 提交委托</h2>
-    <form>
-        <label for="name">姓名 / 公司名称:</label>
+    <form id="contact-form">
+        <label for="name">姓名 / 公司名称*</label>
         <input type="text" id="name" name="name" required>
 
-        <label for="email">邮箱:</label>
+        <label for="email">邮箱*</label>
         <input type="email" id="email" name="email" required>
 
-        <label for="service">委托服务类型:</label>
+        <label for="service">委托服务类型*</label>
         <select id="service" name="service" required>
             <option value="">请选择</option>
             <option value="短视频剪辑">短视频剪辑</option>
@@ -322,10 +369,30 @@
             <option value="多媒体定制">多媒体定制</option>
         </select>
 
-        <label for="message">详细需求说明:</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
+        <label for="details">详细需求说明*</label>
+        <div class="textarea-wrapper">
+            <textarea id="details" name="details" maxlength="500" placeholder="请输入您的需求" required></textarea>
+            <div id="char-count">还可以输入 500 字</div>
+        </div>
+        
+        <div class="textarea-wrapper">
+            <label for="usage">用途说明*</label>
+            <textarea id="usage" name="usage" maxlength="50" placeholder="影音平台投放、广告投放、游戏" required></textarea>
+        </div>
 
         <button type="submit">提交</button>
+
+        <script>
+        const textarea = document.getElementById('details');
+        const charCount = document.getElementById('char-count');
+        const maxLength = 500;
+
+        textarea.addEventListener('input', () => {
+            const remaining = maxLength - textarea.value.length;
+            charCount.textContent = `还可以输入 ${remaining} 字`;
+        });
+
+        </script>
     </form>
 </section>
 
