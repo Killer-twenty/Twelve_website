@@ -281,10 +281,27 @@
 
         /* 有安排的日期整格变黑（可选） */
         .fc .fc-daygrid-day.busy-day {
-            background: #000 !important;
+            background: transparent !important;
         }
+
+        /* 在日期格上方显示一条窄条（像事件条） */
+        .fc .fc-daygrid-day.busy-day .fc-daygrid-day-top::after {
+            content: "";
+            display: block;
+            width: 60%;              /* 条宽度（可调） */
+            height: 6px;             /* 条高度（可调） */
+            margin: 6px auto 4px;    /* 上间距/下间距 */
+            background: #000;        /* 条颜色（和事件条一致） */
+            border-radius: 3px;
+            opacity: 0.95;
+            pointer-events: none;
+        }
+
+        /* 保持日期数字可见（不要被覆盖成白色） */
         .fc .fc-daygrid-day.busy-day .fc-daygrid-day-number {
-            color: #fff !important;
+            color: inherit !important;
+            position: relative;
+            z-index: 1;
         }
 
         /* 顶部工具栏布局（标题行上移并加背景） */
