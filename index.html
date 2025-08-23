@@ -279,21 +279,30 @@
             font-size: 12px;
         }
 
-        /* 有安排的日期整格变黑（可选） */
-        .fc .fc-daygrid-day.busy-day {
-            background: transparent !important;
-        }
-
-        /* 在日期格上方显示一条窄条（像事件条） */
-        .fc .fc-daygrid-day.busy-day .fc-daygrid-day-top::after {
+        /* 当前月有排程：顶部居中黑色条 */
+        .fc .fc-daygrid-day.busy-day:not(.fc-day-other):not(.fc-daygrid-day-other) .fc-daygrid-day-top::after {
             content: "";
             display: block;
-            width: 60%;              /* 条宽度（可调） */
-            height: 6px;             /* 条高度（可调） */
-            margin: 6px auto 4px;    /* 上间距/下间距 */
-            background: #000;        /* 条颜色（和事件条一致） */
+            width: 60%;
+            height: 6px;
+            margin: 6px auto 4px;    /* 居中显示，不在左上角 */
+            background: #000;
             border-radius: 3px;
             opacity: 0.95;
+            pointer-events: none;
+        }
+
+        /* 非当前月（其他月）有排程：顶部居中灰色条（更淡） */
+        .fc .fc-daygrid-day.busy-day.fc-day-other .fc-daygrid-day-top::after,
+        .fc .fc-daygrid-day.busy-day.fc-daygrid-day-other .fc-daygrid-day-top::after {
+            content: "";
+            display: block;
+            width: 60%;
+            height: 6px;
+            margin: 6px auto 4px;    /* 居中显示，不在左上角 */
+            background: #999;        /* 灰色条 */
+            border-radius: 3px;
+            opacity: 0.6;
             pointer-events: none;
         }
 
