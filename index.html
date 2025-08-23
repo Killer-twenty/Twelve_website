@@ -269,41 +269,31 @@
             margin: 0 auto;
         }
 
-        /* 事件样式：黑色横条（像系统日历那样跨天） */
+       /* 只保留单元格内的横条事件：当前月黑色，非当前月灰色 */
         .fc .fc-daygrid-event {
             background: #000 !important;
             border: 1px solid #000 !important;
             color: #fff !important;
-            border-radius: 2px;
-            padding: 2px 4px;
-            font-size: 12px;
+            border-radius: 3px;
+            padding: 0 6px !important;
+            height: 18px !important;
+            line-height: 18px !important;
+            font-size: 12px !important;
+            display: inline-flex !important;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            box-shadow: none !important;
         }
 
-        /* 当前月有排程：顶部居中黑色条 */
-        .fc .fc-daygrid-day.busy-day:not(.fc-day-other):not(.fc-daygrid-day-other) .fc-daygrid-day-top::after {
-            content: "";
-            display: block;
-            width: 60%;
-            height: 6px;
-            margin: 6px auto 4px;    /* 居中显示，不在左上角 */
-            background: #000;
-            border-radius: 3px;
+        /* 非当前月格内的事件显示为灰色横条 */
+        .fc .fc-daygrid-day.fc-day-other .fc-daygrid-event,
+        .fc .fc-daygrid-day.fc-daygrid-day-other .fc-daygrid-event {
+            background: #999 !important;
+            border-color: #999 !important;
+            color: #fff !important;
             opacity: 0.95;
-            pointer-events: none;
-        }
-
-        /* 非当前月（其他月）有排程：顶部居中灰色条（更淡） */
-        .fc .fc-daygrid-day.busy-day.fc-day-other .fc-daygrid-day-top::after,
-        .fc .fc-daygrid-day.busy-day.fc-daygrid-day-other .fc-daygrid-day-top::after {
-            content: "";
-            display: block;
-            width: 60%;
-            height: 6px;
-            margin: 6px auto 4px;    /* 居中显示，不在左上角 */
-            background: #999;        /* 灰色条 */
-            border-radius: 3px;
-            opacity: 0.6;
-            pointer-events: none;
         }
 
         /* 保持日期数字可见（不要被覆盖成白色） */
