@@ -269,25 +269,32 @@
             margin: 0 auto;
         }
 
-       /* 只保留单元格内的横条事件：当前月黑色，非当前月灰色 */
-        .fc .fc-daygrid-event {
-            background: #000 !important;
+        /* 事件样式：保持可跨单元格（display:block），当前月黑，非当前月灰 */
+        .fc .fc-daygrid-event,
+        .fc .fc-daygrid-event-harness .fc-daygrid-event {
+            display: block !important;       /* 允许 FullCalendar 控制宽度以跨格 */
+            box-sizing: border-box;
+            background: #000 !important;     /* 当前月事件黑色 */
             border: 1px solid #000 !important;
             color: #fff !important;
-            border-radius: 3px;
-            padding: 0 6px !important;
-            height: 18px !important;
-            line-height: 18px !important;
+            border-radius: 2px;
+            padding: 2px 6px !important;
             font-size: 12px !important;
-            display: inline-flex !important;
-            align-items: center;
-            overflow: hidden;
+            height: auto !important;         /* 不固定高度，避免破坏跨格布局 */
+            line-height: 1.2 !important;
             white-space: nowrap;
+            overflow: hidden;
             text-overflow: ellipsis;
             box-shadow: none !important;
         }
 
-        /* 非当前月格内的事件显示为灰色横条 */
+        /* 确保 harness（承载多日条的容器）不被你的样式破坏 */
+        .fc .fc-daygrid-event-harness {
+            display: block !important;
+            overflow: visible !important;
+        }
+
+        /* 非当前月（其他月）格内的事件显示为灰色横条，仍可跨单元格 */
         .fc .fc-daygrid-day.fc-day-other .fc-daygrid-event,
         .fc .fc-daygrid-day.fc-daygrid-day-other .fc-daygrid-event {
             background: #999 !important;
